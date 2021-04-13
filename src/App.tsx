@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import './App.css';
 import {Todolist} from "./Todolist";
+import {v1} from 'uuid';
 
-export type TasksPropsType = {
-    id: number
+export type TasksType = {
+    id: string
     title: string
     isDone: boolean
 }
@@ -12,20 +13,32 @@ export type FilterValuesType = 'all' | 'active' | 'completed';
 
 function App() {
 //BLL:
-    const [tasks, setTasks] = useState<Array<TasksPropsType>>([
-        {id: 1, title: 'React', isDone: false},
-        {id: 2, title: 'JS', isDone: false},
-        {id: 3, title: 'HTML', isDone: true},
-        {id: 4, title: 'CSS', isDone: false},
-        {id: 5, title: 'Code', isDone: true},
-        {id: 6, title: 'Code.mu', isDone: false},
+
+    const [tasks, setTasks] = useState<Array<TasksType>>([
+        {id: v1(), title: 'React', isDone: false},
+        {id: v1(), title: 'JS', isDone: false},
+        {id: v1(), title: 'HTML', isDone: true},
+        {id: v1(), title: 'CSS', isDone: false},
+        {id: v1(), title: 'Code', isDone: true},
+        {id: v1(), title: 'Code.mu', isDone: false},
     ])
 
     const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all')
 
-    function removeTask(taskID: number) {
+    function removeTask(taskID: string) {
         const filteredTasks = tasks.filter((task) => task.id !== taskID);
         setTasks(filteredTasks);
+    }
+
+    function addTask(title: string) {
+        const newTask: TasksType = {
+            id: v1(),
+            title,
+            isDone: false
+        }
+        // let newTasks = [newTask, ...tasks];
+        //setTasks(newTasks);
+        setTasks([newTask, ...tasks]);
     }
 
     function changeFilter(value: FilterValuesType) {
@@ -47,6 +60,7 @@ function App() {
     return (
         <div className="App">
             <Todolist title='Coding'
+                      addTask={addTask}
                       tasks={getTaskForTodoList()}
                       removeTask={removeTask}
                       changeFilter={changeFilter}
