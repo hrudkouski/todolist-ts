@@ -17,9 +17,9 @@ function App() {
     const [tasks, setTasks] = useState<Array<TasksType>>([
         {id: v1(), title: 'React', isDone: false},
         {id: v1(), title: 'JS', isDone: false},
-        {id: v1(), title: 'HTML', isDone: true},
+        {id: v1(), title: 'HTML', isDone: false},
         {id: v1(), title: 'CSS', isDone: false},
-        {id: v1(), title: 'Code', isDone: true},
+        {id: v1(), title: 'Code', isDone: false},
         {id: v1(), title: 'Code.mu', isDone: false},
     ])
 
@@ -39,6 +39,13 @@ function App() {
         // let newTasks = [newTask, ...tasks];
         //setTasks(newTasks);
         setTasks([newTask, ...tasks]);
+    }
+
+    function changeTaskStatus(taskId: string, newIsDoneValue: boolean) {
+        setTasks(tasks.map(t =>
+            t.id === taskId
+                ? {...t, isDone: newIsDoneValue}
+                : t))
     }
 
     function changeFilter(value: FilterValuesType) {
@@ -61,9 +68,11 @@ function App() {
         <div className="App">
             <Todolist title='Coding'
                       addTask={addTask}
+                      changeTaskStatus={changeTaskStatus}
                       tasks={getTaskForTodoList()}
                       removeTask={removeTask}
                       changeFilter={changeFilter}
+                      filter={filter}
             />
         </div>
     )
