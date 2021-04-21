@@ -15,14 +15,27 @@
   color: red;
 }
 
-.isDone {
+.active-filter {
+  background-color: #AFD4FF;
+}
+
+.is-done {
   opacity: 0.5;
 }
 
-.active-filter {
-  background-color: aquamarine;
+.button-removed {
+  background-color: #AFD4FF;
+  margin-left: 5px;
+  padding: 0;
+  cursor: pointer;
+  width: 15px;
+  height: 20px;
+}
+
+.button-removed:hover {
+  background-color: red;
 }
 
 body {
-  background-color: #c6bcbc;
+  background-color: bisque;
 }

@@ -14,23 +14,7 @@ type TodolistPropsType = {
 export function Todolist(props: TodolistPropsType) {
 
     const [error, setError] = useState<boolean>(false);
-
     const [title, setTitle] = useState<string>('')
-
-    const tasks = props.tasks.map(t => {
-        const removeTaskHandler = () => props.removeTask(t.id);
-        const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(t.id, e.currentTarget.checked);
-        return (
-            <li key={t.id} className={t.isDone ? 'isDone' : ''}>
-                <input
-                    onChange={onChangeHandler}
-                    type="checkbox"
-                    checked={t.isDone}/>
-                <span>{t.title}</span>
-                <button onClick={removeTaskHandler}>x</button>
-            </li>
-        )
-    });
 
     const onClickAddTask = () => {
         const trimmedTitle = title.trim();
@@ -41,10 +25,6 @@ export function Todolist(props: TodolistPropsType) {
         }
         setTitle('');
     };
-
-    const errorMessage = error
-        ? <div className={'error-message'}>Title is required</div>
-        : null;
 
     const onKeyPressAddTask = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
@@ -62,6 +42,28 @@ export function Todolist(props: TodolistPropsType) {
     const onClickCompletedFilter = () => props.changeFilter('completed');
 
     const {filter} = props;
+
+    const errorMessage = error
+        ? <div className={'error-message'}>Title is required</div>
+        : null;
+
+    const tasks = props.tasks.map(t => {
+        const removeTaskHandler = () => props.removeTask(t.id);
+        const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => props.changeTaskStatus(t.id, e.currentTarget.checked);
+        return (
+            <li key={t.id} className={t.isDone ? 'is-done' : ''}>
+                <input
+                    onChange={onChangeHandler}
+                    type="checkbox"
+                    checked={t.isDone}/>
+                <span>{t.title}</span>
+                <button
+                    className='button-removed'
+                    onClick={removeTaskHandler}>x
+                </button>
+            </li>
+        )
+    });
 
     return (
         <div>

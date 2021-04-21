@@ -36,8 +36,6 @@ function App() {
             title,
             isDone: false
         }
-        // let newTasks = [newTask, ...tasks];
-        //setTasks(newTasks);
         setTasks([newTask, ...tasks]);
     }
 
