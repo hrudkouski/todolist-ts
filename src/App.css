@@ -1,41 +1,42 @@
 .App {
-  padding: 30px;
-  display: flex;
+    padding: 30px;
+    display: flex;
 }
 
 .App > div {
-  margin-right: 50px;
+    margin-right: 50px;
 }
 
 .error {
-  border: red 2px solid;
+    border: red 2px solid;
+    outline: none;
 }
 
 .error-message {
-  color: red;
+    color: red;
 }
 
 .active-filter {
-  background-color: #AFD4FF;
+    background-color: #AFD4FF;
 }
 
 .is-done {
-  opacity: 0.5;
+    opacity: 0.5;
 }
 
 .button-removed {
-  background-color: #AFD4FF;
-  margin-left: 5px;
-  padding: 0;
-  cursor: pointer;
-  width: 15px;
-  height: 20px;
+    background-color: #AFD4FF;
+    margin-left: 5px;
+    padding: 0;
+    cursor: pointer;
+    width: 15px;
+    height: 20px;
 }
 
 .button-removed:hover {
-  background-color: red;
+    background-color: red;
 }
 
 body {
-  background-color: bisque;
+    background-color: bisque;
 }
