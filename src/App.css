@@ -1,11 +1,11 @@
-.App {
-    padding: 30px;
-    display: flex;
-}
+/*.App {*/
+/*    padding: 30px;*/
+/*    display: flex;*/
+/*}*/
 
-.App > div {
-    margin-right: 50px;
-}
+/*.App > div {*/
+/*    margin-right: 50px;*/
+/*}*/
 
 .error {
     border: red 2px solid;
@@ -38,5 +38,7 @@
 }
 
 body {
-    background-color: bisque;
+    background-color: #f6e997;
+    /*background-color: #17212B;*/
+    /*color: #F5F5F5;*/
 }
