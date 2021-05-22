@@ -11,17 +11,14 @@ export type TasksType = {
     title: string
     isDone: boolean
 }
-
 export type TodoListType = {
     id: string
     title: string
     filter: FilterValuesType
 }
-
 export type TaskStateType = {
     [key: string]: Array<TasksType>
 }
-
 export type FilterValuesType = 'all' | 'active' | 'completed';
 
 function App() {

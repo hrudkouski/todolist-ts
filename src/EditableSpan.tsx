@@ -1,4 +1,4 @@
-import React, {useState, ChangeEvent} from "react";
+import React, {useState, ChangeEvent, KeyboardEvent} from "react";
 import {TextField} from "@material-ui/core";
 
 export type EditableSpanType = {
@@ -23,12 +23,19 @@ export function EditableSpan(props: EditableSpanType) {
         props.changeTitle(title);
     }
 
+    const onPressEnterOffEditMode = (e: KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter') {
+            offEditMode()
+        }
+    }
+
     return (
         editMode
             ? <TextField
                 onChange={onChangeTitle}
                 value={title}
                 onBlur={offEditMode}
+                onKeyPress={onPressEnterOffEditMode}
                 autoFocus
             />
             : <span onDoubleClick={onEditMode}>{props.title}</span>
