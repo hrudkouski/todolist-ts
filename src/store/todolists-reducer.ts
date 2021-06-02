@@ -1,6 +1,11 @@
 import {FilterValuesType, TodoListType} from "../App";
 import {v1} from "uuid";
 
+const REMOVE_TODOLIST = 'REMOVE_TODOLIST';
+const ADD_TODOLIST = 'ADD_TODOLIST';
+const CHANGE_TODOLIST_TITLE = 'CHANGE_TODOLIST_TITLE';
+const CHANGE_TODOLIST_FILTER = 'CHANGE_TODOLIST_FILTER';
+
 export type RemoveTodoListAT = {
     type: 'REMOVE_TODOLIST'
     id: string
@@ -21,13 +26,24 @@ export type ChangeTodoListFilterAT = {
     filter: FilterValuesType
 }
 
-export type ActionsType = RemoveTodoListAT | AddTodoListAT | ChangeTodoListTitleAT | ChangeTodoListFilterAT;
+export type ActionsType = RemoveTodoListAT
+    | AddTodoListAT
+    | ChangeTodoListTitleAT
+    | ChangeTodoListFilterAT;
 
-export const todoListsReducer = (state: Array<TodoListType>, action: ActionsType): Array<TodoListType> => {
+export const todoListID_1 = v1();
+export const todoListID_2 = v1();
+
+const initialState: Array<TodoListType> = [
+    {id: todoListID_1, title: 'What to learn', filter: 'all'},
+    {id: todoListID_2, title: 'What to bye', filter: 'all'},
+]
+
+export const todoListsReducer = (state = initialState, action: ActionsType): Array<TodoListType> => {
     switch (action.type) {
-        case 'REMOVE_TODOLIST':
+        case REMOVE_TODOLIST:
             return state.filter(el => el.id !== action.id)
-        case 'ADD_TODOLIST':
+        case ADD_TODOLIST:
             const newTodoListID = action.todoListID;
             const newTodoList: TodoListType = {
                 id: newTodoListID,
@@ -35,16 +51,17 @@ export const todoListsReducer = (state: Array<TodoListType>, action: ActionsType
                 filter: 'all',
             }
             return [...state, newTodoList]
-        case 'CHANGE_TODOLIST_TITLE':
+        case CHANGE_TODOLIST_TITLE:
             return state.map(tl => tl.id === action.id
                 ? {...tl, title: action.title}
                 : tl);
-        case 'CHANGE_TODOLIST_FILTER':
+        case CHANGE_TODOLIST_FILTER:
             return state.map(tl => tl.id === action.id
                 ? {...tl, filter: action.filter}
                 : tl)
         default:
-            throw new Error('I don`t understand this action type')
+            // throw new Error('I don`t understand this action type')
+            return state;
     }
 }
 
