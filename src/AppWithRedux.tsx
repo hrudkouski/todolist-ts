@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './App.css';
 import {Todolist} from "./Todolist";
 import {AddItemForm} from "./AddItemForm";
@@ -13,6 +13,7 @@ import {
 import {addTaskAC, changeTaskStatusAC, changeTitleStatusAC, removeTasksAC} from "./store/tasks-reducer";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./store/store";
+
 
 export type TasksType = {
     id: string
@@ -29,66 +30,48 @@ export type TaskStateType = {
 }
 export type FilterValuesType = 'all' | 'active' | 'completed';
 
-function AppWithRedux() {
+const AppWithRedux = () => {
     //BLL:
     const todoLists = useSelector<AppRootStateType, TodoListType[]>(state => state.todoLists);
     const tasks = useSelector<AppRootStateType, TaskStateType>(state => state.tasks);
     const dispatch = useDispatch();
 
     //TodoLists
-    function addTodoList(title: string) {
+    const addTodoList = useCallback((title: string) => {
         dispatch(addTodolistAC(title))
-    }
-
-    function deleteTodoList(todoListID: string) {
+    }, [dispatch])
+    const deleteTodoList = useCallback((todoListID: string) => {
         dispatch(removeTodolistAC(todoListID))
-    }
-
-    function changeTodolistTitle(newTitle: string, todoListID: string) {
+    }, [dispatch])
+    const changeTodolistTitle = useCallback((newTitle: string, todoListID: string) => {
         dispatch(changeTodoListTitleAC(todoListID, newTitle))
-    }
-
-    function changeFilter(value: FilterValuesType, todoListID: string) {
+    }, [dispatch])
+    const changeFilter = useCallback((value: FilterValuesType, todoListID: string) => {
         dispatch(changeTodoListFilterAC(todoListID, value))
-    }
+    }, [dispatch])
 
     //Tasks
-    function removeTask(taskID: string, todoListID: string) {
+    const removeTask = useCallback((taskID: string, todoListID: string) => {
         dispatch(removeTasksAC(taskID, todoListID))
-    }
-
-    function addTask(title: string, todoListID: string) {
+    }, [dispatch])
+    const addTask = useCallback((title: string, todoListID: string) => {
         dispatch(addTaskAC(title, todoListID))
-    }
-
-    function changeTaskStatus(taskId: string, newIsDoneValue: boolean, todoListID: string) {
+    }, [dispatch])
+    const changeTaskStatus = useCallback((taskId: string, newIsDoneValue: boolean, todoListID: string) => {
         dispatch(changeTaskStatusAC(taskId, newIsDoneValue, todoListID))
-    }
-
-    function changeTaskTitle(taskId: string, newTitle: string, todoListID: string) {
+    }, [dispatch])
+    const changeTaskTitle = useCallback((taskId: string, newTitle: string, todoListID: string) => {
         dispatch(changeTitleStatusAC(taskId, newTitle, todoListID))
-    }
-
-    function getTaskForTodoList(todoList: TodoListType) {
-        switch (todoList.filter) {
-            case 'active':
-                return tasks[todoList.id].filter(t => !t.isDone);
-            case 'completed':
-                return tasks[todoList.id].filter(t => t.isDone);
-            default:
-                return tasks[todoList.id];
-        }
-    }
+    }, [dispatch])
 
     const todoListsComponents = todoLists.map(tl => {
-
         return (
             <Grid item key={tl.id}>
                 <Paper elevation={20} style={{padding: '15px'}}>
                     <Todolist
                         todoListID={tl.id}
                         deleteTodoList={deleteTodoList}
-                        tasks={getTaskForTodoList(tl)}
+                        tasks={tasks[tl.id]}
                         title={tl.title}
                         filter={tl.filter}
                         addTask={addTask}
@@ -126,7 +109,9 @@ function AppWithRedux() {
                 <Grid
                     container spacing={3}
                     style={{justifyContent: 'space-evenly'}}>
-                    {todoListsComponents}
+                    {
+                        todoListsComponents
+                    }
                 </Grid>
             </Container>
         </div>

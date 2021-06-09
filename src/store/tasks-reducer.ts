@@ -1,6 +1,6 @@
-import {TaskStateType, TasksType} from "../App";
+import {TaskStateType, TasksType} from "../AppWithRedux";
 import {v1} from "uuid";
-import {AddTodoListAT, RemoveTodoListAT, todoListID_1, todoListID_2} from "./todolists-reducer";
+import {AddTodoListAT, RemoveTodoListAT} from "./todolists-reducer";
 
 const REMOVE_TASK = 'REMOVE_TASK';
 const ADD_TASK = 'ADD_TASK';
@@ -40,18 +40,18 @@ export type ActionsType = AddTaskAT
     | AddTodoListAT;
 
 const initialState: TaskStateType = {
-    [todoListID_1]: [
-        {id: v1(), title: 'React', isDone: false},
-        {id: v1(), title: 'JS', isDone: false},
-        {id: v1(), title: 'HTML', isDone: false},
-        {id: v1(), title: 'CSS', isDone: false},
-    ],
-    [todoListID_2]: [
-        {id: v1(), title: 'Milk', isDone: false},
-        {id: v1(), title: 'Salt', isDone: false},
-        {id: v1(), title: 'Bread', isDone: false},
-        {id: v1(), title: 'Butter', isDone: false},
-    ]
+    // [todoListID_1]: [
+    //     {id: v1(), title: 'React', isDone: false},
+    //     {id: v1(), title: 'JS', isDone: false},
+    //     {id: v1(), title: 'HTML', isDone: false},
+    //     {id: v1(), title: 'CSS', isDone: false},
+    // ],
+    // [todoListID_2]: [
+    //     {id: v1(), title: 'Milk', isDone: false},
+    //     {id: v1(), title: 'Salt', isDone: false},
+    //     {id: v1(), title: 'Bread', isDone: false},
+    //     {id: v1(), title: 'Butter', isDone: false},
+    // ]
 };
 
 export const tasksReducer = (state = initialState, action: ActionsType): TaskStateType => {
