@@ -1,5 +1,5 @@
-import {FilterValuesType, TodoListType} from "../AppWithRedux";
 import {v1} from "uuid";
+import {TodoListType} from "../api/todoList-api";
 
 // Actions
 export const REMOVE_TODOLIST = 'todolist-ts/todolists-reducer/REMOVE_TODOLIST';
@@ -27,30 +27,38 @@ export type ChangeTodoListFilterAT = {
     id: string
     filter: FilterValuesType
 }
+export type FilterValuesType = 'all' | 'active' | 'completed';
+export type TodoListDomainType = TodoListType & {
+    filter: FilterValuesType
+}
 export type ActionsType = RemoveTodoListAT
     | AddTodoListAT
     | ChangeTodoListTitleAT
     | ChangeTodoListFilterAT;
 
-//Initial State
-// export const todoListID_1 = v1();
-// export const todoListID_2 = v1();
-const initialState: Array<TodoListType> = [
-    // {id: todoListID_1, title: 'What to learn', filter: 'all'},
-    // {id: todoListID_2, title: 'What to bye', filter: 'all'},
+const initialState: TodoListDomainType[] = [
+    // {
+    //     id: todoListID_1, title: 'What to learn', filter: 'all', addedDate: '',
+    //     order: 0
+    // },
+    // {
+    //     id: todoListID_2, title: 'What to bye', filter: 'all', addedDate: '',
+    //     order: 0
+    // },
 ]
 
 // Reducer
-export const todoListsReducer = (state = initialState, action: ActionsType): Array<TodoListType> => {
+export const todoListsReducer = (state: TodoListDomainType[] = initialState, action: ActionsType): TodoListDomainType[] => {
     switch (action.type) {
         case REMOVE_TODOLIST:
             return state.filter(el => el.id !== action.id)
         case ADD_TODOLIST:
-            const newTodoListID = action.todoListID;
-            const newTodoList: TodoListType = {
-                id: newTodoListID,
+            const newTodoList: TodoListDomainType = {
+                id: action.todoListID,
                 title: action.title,
+                addedDate: '',
                 filter: 'all',
+                order: 0,
             }
             return [...state, newTodoList]
         case CHANGE_TODOLIST_TITLE:
