@@ -21,7 +21,7 @@ describe('EditableSpan', () => {
 });
 
 describe('AppWithRedux', () => {
-    it('base example, AppWithRedux visually looks correct', async () => {
+    it('base example, App visually looks correct', async () => {
         // APIs from jest-puppeteer
         await page.goto('http://localhost:9009/iframe.html?id=todolist-ts-components-appwithredux--app-with-redux-example&args=&viewMode=story');
         const image = await page.screenshot();

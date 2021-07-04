@@ -1,8 +1,8 @@
 import React from 'react';
 import {Story, Meta} from '@storybook/react';
 import {action} from "@storybook/addon-actions";
-import {Task, TasksPropsType} from "../components/Task";
-import {TaskPriorities, TaskStatuses} from "../api/todoList-api";
+import {Task, TasksPropsType} from "./Task";
+import {TaskPriorities, TaskStatuses} from "../../../../api/todoList-api";
 
 export default {
     title: 'todolist-ts/components/Task',
