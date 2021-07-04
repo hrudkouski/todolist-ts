@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {todoListApi} from "../api/todoList-api";
+import {TaskPriorities, TaskStatuses, todoListApi} from "../api/todoList-api";
 
 export default {
     title: 'Tasks API'
@@ -54,10 +54,18 @@ export const UpdateTaskForTodolist = () => {
     const [state, setState] = useState<any>(null)
     const todolistId = '793486d1-e2d5-4c00-ab86-8976bad6e145';
     const taskId = '694719ec-b9bb-476e-bf74-ea8253155ea5';
-    const title = 'What is VUE.JS???';
+    // const title = 'What is VUE.JS???';
+    const model = {
+        description: '',
+        title: 'What is VUE.JS???',
+        status: TaskStatuses.New,
+        priority: TaskPriorities.Low,
+        startDate: '',
+        deadline: '',
+    }
 
     useEffect(() => {
-        todoListApi.updateTaskForTodolist(todolistId, taskId, title)
+        todoListApi.updateTaskForTodolist(todolistId, taskId, model)
             .then((res) => {
                 setState(res.data);
             })
