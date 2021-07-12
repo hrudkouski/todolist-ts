@@ -7,10 +7,12 @@ import {tasksReducer} from "../features/TodolistsList/tasks-reducer";
 import {todoListsReducer} from "../features/TodolistsList/todolists-reducer";
 import {TaskPriorities, TaskStatuses} from "../api/todoList-api";
 import thunkMiddleWare from "redux-thunk";
+import {appReducer} from "../app/app-reducer";
 
 const rootReducer = combineReducers({
+    todoLists: todoListsReducer,
     tasks: tasksReducer,
-    todoLists: todoListsReducer
+    app: appReducer,
 })
 
 const initialGlobalState = {
@@ -21,6 +23,7 @@ const initialGlobalState = {
             filter: 'all',
             addedDate: '',
             order: 0,
+            entityStatus: "idle"
         },
         {
             id: 'todoListID_2',
@@ -28,8 +31,9 @@ const initialGlobalState = {
             filter: 'all',
             addedDate: '',
             order: 0,
+            entityStatus: "idle"
         },
-    ] ,
+    ],
     tasks: {
         ['todoListID_1']: [
             {
@@ -55,6 +59,10 @@ const initialGlobalState = {
                 deadline: '', todoListId: 'todoListID_2', order: 0, addedDate: '',
             },
         ]
+    },
+    app: {
+        error: null,
+        status: 'idle'
     }
 };
 
