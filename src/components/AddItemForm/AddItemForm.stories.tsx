@@ -19,3 +19,9 @@ export const AddItemFormExample = Template.bind({});
 AddItemFormExample.args = {
     addItem: action('Button clicked inside components'),
 };
+
+export const AddItemFormDisabled = Template.bind({});
+AddItemFormDisabled.args = {
+    addItem: action('Button disabled '),
+    disabled: true
+};

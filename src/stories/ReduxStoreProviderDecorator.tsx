@@ -31,7 +31,7 @@ const initialGlobalState = {
             filter: 'all',
             addedDate: '',
             order: 0,
-            entityStatus: "idle"
+            entityStatus: "loading"
         },
     ],
     tasks: {
@@ -43,6 +43,11 @@ const initialGlobalState = {
             },
             {
                 id: v1(), title: 'JS', status: TaskStatuses.Completed,
+                description: '', priority: TaskPriorities.Low, startDate: '',
+                deadline: '', todoListId: 'todoListID_1', order: 0, addedDate: '',
+            },
+            {
+                id: v1(), title: 'Vue', status: TaskStatuses.InProgress,
                 description: '', priority: TaskPriorities.Low, startDate: '',
                 deadline: '', todoListId: 'todoListID_1', order: 0, addedDate: '',
             },

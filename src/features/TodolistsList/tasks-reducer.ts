@@ -1,6 +1,6 @@
 import {
     SetTodolistsAT, AddTodoListAT, RemoveTodoListAT,
-    SET_TODOLISTS, ADD_TODOLIST, REMOVE_TODOLIST,
+    SET_TODOLISTS, ADD_TODOLIST, REMOVE_TODOLIST, changeTodolistEntityStatusAC,
 } from "./todolists-reducer";
 import {TaskPriorities, TaskStatuses, TasksType, todoListApi, UpdateTaskModelType} from "../../api/todoList-api";
 import {AppRootStateType, AppThunkType} from "../../app/store";
@@ -122,11 +122,13 @@ export const addTaskTC = (title: string, todoListID: string): AppThunkType => {
 export const removeTaskTC = (taskID: string, todoListID: string): AppThunkType => {
     return (dispatch) => {
         dispatch(setAppStatus('loading'))
+        dispatch(changeTodolistEntityStatusAC(todoListID, 'loading'))
         todoListApi.deleteTaskFromTodolist(taskID, todoListID)
             .then((res) => {
                 if (res.data.resultCode === 0) {
                     dispatch(removeTasksAC(taskID, todoListID))
                     dispatch(setAppStatus('succeeded'))
+                    dispatch(changeTodolistEntityStatusAC(todoListID, 'succeeded'))
                 }
             })
     }

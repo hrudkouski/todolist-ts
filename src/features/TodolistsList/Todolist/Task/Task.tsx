@@ -6,10 +6,11 @@ import {TaskStatuses, TasksType} from "../../../../api/todoList-api";
 
 export type TasksPropsType = {
     task: TasksType
-    removeTask: (taskID: string, todoListID: string) => void;
+    removeTask: (taskID: string, todoListID: string) => void
     todoListID: string
     changeTaskStatus: (taskId: string, status: TaskStatuses, todoListID: string) => void
     changeTaskTitle: (taskId: string, title: string, todoListID: string) => void
+    disabled?: boolean
 }
 
 export const Task = React.memo((props: TasksPropsType) => {
@@ -20,6 +21,7 @@ export const Task = React.memo((props: TasksPropsType) => {
         changeTaskStatus,
         changeTaskTitle,
         todoListID,
+        disabled,
     } = props;
 
     const removeTaskHandler = useCallback(() => removeTask(task.id, todoListID), [task.id, todoListID, removeTask])
@@ -37,19 +39,21 @@ export const Task = React.memo((props: TasksPropsType) => {
     }, [task.id, todoListID, changeTaskTitle])
 
     return (
-        // <div className={task.status ? 'is-done' : ''}>
             <div className={task.status === TaskStatuses.Completed ? 'is-done' : ''}>
             <Checkbox
-                // checked={!!task.status}
                 checked={task.status === TaskStatuses.Completed}
                 onChange={onChangeHandler}
                 color={'primary'}
             />
             <EditableSpan
+                disabled={disabled}
                 changeTitle={changeTaskTitleHandler}
                 value={task.title}/>
-            <IconButton onClick={removeTaskHandler}>
-                <Delete color="secondary"/>
+            <IconButton
+                disabled={disabled}
+                onClick={removeTaskHandler}
+            >
+                <Delete/>
             </IconButton>
         </div>
     )
