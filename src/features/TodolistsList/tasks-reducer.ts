@@ -4,7 +4,8 @@ import {
 } from "./todolists-reducer";
 import {TaskPriorities, TaskStatuses, TasksType, todoListApi, UpdateTaskModelType} from "../../api/todoList-api";
 import {AppRootStateType, AppThunkType} from "../../app/store";
-import {setAppError, setAppStatus} from "../../app/app-reducer";
+import {setAppStatus} from "../../app/app-reducer";
+import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
 // Actions
 const SET_TASKS = 'todolist-ts/tasks-reducer/SET_TASKS';
@@ -109,13 +110,11 @@ export const addTaskTC = (title: string, todoListID: string): AppThunkType => {
                     dispatch(addTaskAC(res.data.data.item))
                     dispatch(setAppStatus('succeeded'))
                 } else {
-                    if (res.data.messages.length) {
-                        dispatch(setAppError(res.data.messages[0]))
-                    } else {
-                        dispatch(setAppError('Some error occurred'))
-                    }
-                    dispatch(setAppStatus('failed'))
+                    handleServerAppError(res.data, dispatch);
                 }
+            })
+            .catch((error) => {
+                handleServerNetworkError(error, dispatch)
             })
     }
 }
@@ -129,7 +128,14 @@ export const removeTaskTC = (taskID: string, todoListID: string): AppThunkType =
                     dispatch(removeTasksAC(taskID, todoListID))
                     dispatch(setAppStatus('succeeded'))
                     dispatch(changeTodolistEntityStatusAC(todoListID, 'succeeded'))
+                } else {
+                    handleServerAppError(res.data, dispatch);
+                    dispatch(changeTodolistEntityStatusAC(todoListID, 'failed'))
                 }
+            })
+            .catch((error) => {
+                handleServerNetworkError(error, dispatch)
+                dispatch(changeTodolistEntityStatusAC(todoListID, 'failed'))
             })
     }
 }
@@ -154,7 +160,14 @@ export const updateTaskTC = (taskId: string, domainModel: UpdateDomainTaskModelT
                     if (res.data.resultCode === 0) {
                         dispatch(updateTaskAC(taskId, domainModel, todoListID))
                         dispatch(setAppStatus('succeeded'))
+                    } else {
+                        handleServerAppError(res.data, dispatch);
+                        dispatch(changeTodolistEntityStatusAC(todoListID, 'failed'))
                     }
+                })
+                .catch((error) => {
+                    handleServerNetworkError(error, dispatch)
+                    dispatch(changeTodolistEntityStatusAC(todoListID, 'failed'))
                 })
         }
     }

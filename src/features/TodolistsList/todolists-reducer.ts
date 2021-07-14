@@ -1,6 +1,7 @@
 import {todoListApi, TodoListType} from "../../api/todoList-api";
-import {RequestStatusType, setAppError, setAppStatus} from "../../app/app-reducer";
+import {RequestStatusType, setAppStatus} from "../../app/app-reducer";
 import {AppThunkType} from "../../app/store";
+import {handleServerAppError, handleServerNetworkError} from "../../utils/error-utils";
 
 // Actions
 export const SET_TODOLISTS = 'todolist-ts/todolists-reducer/SET_TODOLISTS';
@@ -71,7 +72,6 @@ export const changeTodolistEntityStatusAC = (todoListID: string, entityStatus: R
     return {type: CHANGE_TODOLIST_ENTITY_STATUS, id: todoListID, entityStatus} as const
 }
 
-
 // Thunk Creators
 export const fetchTodolistsTC = (): AppThunkType => {
     return (dispatch) => {
@@ -92,13 +92,11 @@ export const addTodolistTC = (title: string): AppThunkType => {
                     dispatch(addTodolistAC(res.data.data.item))
                     dispatch(setAppStatus('succeeded'))
                 } else {
-                    if (res.data.messages.length) {
-                        dispatch(setAppError(res.data.messages[0]))
-                    } else {
-                        dispatch(setAppError('Some error occurred'))
-                    }
-                    dispatch(setAppStatus('failed'))
+                    handleServerAppError(res.data, dispatch);
                 }
+            })
+            .catch((error) => {
+                handleServerNetworkError(error, dispatch)
             })
     }
 }
@@ -111,7 +109,14 @@ export const removeTodolistTC = (todoListID: string): AppThunkType => {
                 if (res.data.resultCode === 0) {
                     dispatch(removeTodolistAC(todoListID))
                     dispatch(setAppStatus('succeeded'))
+                } else {
+                    handleServerAppError(res.data, dispatch);
+                    dispatch(changeTodolistEntityStatusAC(todoListID, 'failed'))
                 }
+            })
+            .catch((error) => {
+                handleServerNetworkError(error, dispatch)
+                dispatch(changeTodolistEntityStatusAC(todoListID, 'failed'))
             })
     }
 }
@@ -125,7 +130,14 @@ export const changeTodoListTitleTC = (newTitle: string, todoListID: string): App
                     dispatch(changeTodoListTitleAC(todoListID, newTitle))
                     dispatch(setAppStatus('succeeded'));
                     dispatch(changeTodolistEntityStatusAC(todoListID, 'succeeded'))
+                } else {
+                    handleServerAppError(res.data, dispatch);
+                    dispatch(changeTodolistEntityStatusAC(todoListID, 'failed'))
                 }
+            })
+            .catch((error) => {
+                handleServerNetworkError(error, dispatch)
+                dispatch(changeTodolistEntityStatusAC(todoListID, 'failed'))
             })
     }
 }

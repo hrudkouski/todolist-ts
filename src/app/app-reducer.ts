@@ -1,8 +1,8 @@
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
 export type ErrorType = null | string;
-export type SetErrorAT = ReturnType<typeof setAppError>;
-export type SetStatusAT = ReturnType<typeof setAppStatus>;
-export type AppActionsType = SetErrorAT | SetStatusAT;
+export type SetAppErrorAT = ReturnType<typeof setAppError>;
+export type SetAppStatusAT = ReturnType<typeof setAppStatus>;
+export type AppActionsType = SetAppErrorAT | SetAppStatusAT;
 export type InitialStateType = typeof initialState;
 
 const initialState = {

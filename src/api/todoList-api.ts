@@ -35,7 +35,7 @@ export type UpdateTaskModelType = {
     startDate: string | null
     deadline: string | null
 }
-type CommonResponseType<T = {}> = {
+export type CommonResponseType<T = {}> = {
     resultCode: number
     fieldsError: string[]
     messages: string[]

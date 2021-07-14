@@ -42,7 +42,7 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
     useEffect(() => {
         if (demo) return;
         dispatch(fetchTasksTC(todoList.id));
-    }, [todoList.id, dispatch])
+    }, [todoList.id, dispatch, demo])
 
     const onClickAllFilter = useCallback(() => changeFilter('all', todoList.id), [changeFilter, todoList.id])
 
@@ -70,7 +70,7 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
 
     const tasksFor = tasksForTodolist.map(t => {
         return <Task
-            disabled={todoList.entityStatus === 'loading'}
+            disabled={todoList.entityStatus}
             task={t}
             key={t.id}
             removeTask={removeTask}
@@ -92,7 +92,7 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
                     <IconButton
                         disabled={todoList.entityStatus === 'loading'}
                         onClick={onClickDeleteTodoList}>
-                        <Delete/>
+                        <Delete />
                     </IconButton>
                 </h3>
                 <AddItemForm

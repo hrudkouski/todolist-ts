@@ -25,49 +25,49 @@ export const TodolistsList: React.FC<TodolistsListPropsType> = ({demo = false}) 
     useEffect(() => {
         if (demo) return
         dispatch(fetchTodolistsTC());
-    }, [dispatch])
+    }, [dispatch, demo])
 
     // TodoLists
     const addTodoList = useCallback((title: string) => {
         if (demo) return
         dispatch(addTodolistTC(title))
-    }, [dispatch])
+    }, [dispatch, demo])
 
     const deleteTodoList = useCallback((todoListID: string) => {
         if (demo) return
         dispatch(removeTodolistTC(todoListID));
-    }, [dispatch])
+    }, [dispatch, demo])
 
     const changeTodolistTitle = useCallback((newTitle: string, todoListID: string) => {
         if (demo) return
         dispatch(changeTodoListTitleTC(newTitle, todoListID));
-    }, [dispatch])
+    }, [dispatch, demo])
 
     const changeFilter = useCallback((value: FilterValuesType, todoListID: string) => {
         if (demo) return
         dispatch(changeTodoListFilterAC(todoListID, value))
-    }, [dispatch])
+    }, [dispatch, demo])
 
     // Tasks
     const removeTask = useCallback((taskID: string, todoListID: string) => {
         if (demo) return
         dispatch(removeTaskTC(taskID, todoListID))
-    }, [dispatch])
+    }, [dispatch, demo])
 
     const addTask = useCallback((title: string, todoListID: string) => {
         if (demo) return
         dispatch(addTaskTC(title, todoListID))
-    }, [dispatch])
+    }, [dispatch, demo])
 
     const changeTaskStatus = useCallback((taskId: string, status: TaskStatuses, todoListID: string) => {
         if (demo) return
         dispatch(updateTaskTC(taskId, {status}, todoListID))
-    }, [dispatch])
+    }, [dispatch, demo])
 
     const changeTaskTitle = useCallback((taskId: string, newTitle: string, todoListID: string) => {
         if (demo) return
         dispatch(updateTaskTC(taskId, {title: newTitle}, todoListID))
-    }, [dispatch])
+    }, [dispatch, demo])
 
     const todoListsComponents = todoLists.map(tl => {
         return (
