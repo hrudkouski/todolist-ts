@@ -1,0 +1,22 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.error {
+    font-size: 15em;
+    color: red;
+}
+
+.errorText {
+    font-size: 4em;
+    color: #1a1919;
+}
+
+.errorText2 {
+    margin-top: 20px;
+    font-size: 2em;
+    color: #0e0d0d;
+}

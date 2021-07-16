@@ -13,6 +13,9 @@ import AppBar from '@material-ui/core/AppBar/AppBar';
 import {useSelector} from "react-redux";
 import {AppRootStateType} from "./store";
 import {RequestStatusType} from "./app-reducer";
+import {Redirect, Route, Switch} from 'react-router-dom';
+import {Login} from "../features/Login/Login";
+import Error404 from "../features/Error404/Error404";
 
 type AppPropsType = {
     demo?: boolean
@@ -40,7 +43,12 @@ const App: React.FC<AppPropsType> = ({demo = false}) => {
             {status === 'loading' && <LinearProgress color="secondary"/>}
             <ErrorSnackbar/>
             <Container fixed>
-                <TodolistsList demo={demo}/>
+                <Switch>
+                    <Route path={'/login'} render={() => <Login/>}/>
+                    <Route exact path={'/'} render={() => <TodolistsList demo={demo}/>}/>
+                    <Route path={'/404'} render={() => <Error404/>}/>
+                    <Redirect from={'*'} to={'/404'}/>
+                </Switch>
             </Container>
         </div>
     )

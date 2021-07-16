@@ -8,6 +8,7 @@ import {TaskStatuses, TasksType} from "../../../api/todoList-api";
 import {FilterValuesType, TodoListDomainType} from "../todolists-reducer";
 import {useDispatch} from "react-redux";
 import {fetchTasksTC} from "../tasks-reducer";
+import s from './Todolist.module.css'
 
 type TodolistPropsType = {
     todoList: TodoListDomainType
@@ -80,8 +81,9 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
         />
     })
 
+
     return (
-        <div>
+        <div className={s.todolists}>
             <div>
                 <h3>
                     <EditableSpan
