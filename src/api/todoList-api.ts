@@ -9,6 +9,12 @@ const instance = axios.create({
 })
 
 // Types
+export type CommonResponseType<T = {}> = {
+    resultCode: number
+    fieldsError: string[]
+    messages: string[]
+    data: T
+}
 export type TodoListType = {
     id: string
     title: string
@@ -35,12 +41,6 @@ export type UpdateTaskModelType = {
     startDate: string | null
     deadline: string | null
 }
-export type CommonResponseType<T = {}> = {
-    resultCode: number
-    fieldsError: string[]
-    messages: string[]
-    data: T
-}
 type TasksResponseType = {
     error: null | string
     items: TasksType[]
@@ -59,39 +59,55 @@ export enum TaskPriorities {
     Urgently = 3,
     Later = 4
 }
+export type LoginParamsType = {
+    email: string
+    password: string
+    rememberMe: boolean
+    captcha?: string
+}
+export type AuthMeResponseType = {
+    id: number
+    email: string
+    login: string
+}
 
 // Api
 export const todoListApi = {
     getToDoList() {
         return instance.get<TodoListType[]>('todo-lists');
     },
-
     createTodolist(title: string) {
         return instance.post<CommonResponseType<{ item: TodoListType }>>('todo-lists', {title})
     },
-
     deleteTodolist(todolistId: string) {
         return instance.delete<CommonResponseType>(`todo-lists/${todolistId}`)
     },
-
     updateTodolistTitle(title: string, todolistId: string) {
         return instance.put<CommonResponseType>(`todo-lists/${todolistId}`, {title})
     },
-
     getTasksForTodolist(todolistId: string) {
         return instance.get<TasksResponseType>(`todo-lists/${todolistId}/tasks`);
     },
-
     createTaskForTodolist(title: string, todolistId: string) {
         return instance.post<CommonResponseType<{ item: TasksType }>>(`todo-lists/${todolistId}/tasks`, {title});
     },
-
     deleteTaskFromTodolist(taskId: string, todolistId: string,) {
         return instance.delete<CommonResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`);
     },
-
     updateTaskForTodolist(todolistId: string, taskId: string, model: UpdateTaskModelType) {
         return instance.put<CommonResponseType<TasksType>>(`todo-lists/${todolistId}/tasks/${taskId}`, model)
     },
 }
+export const authAPI = {
+    logIn(data: LoginParamsType) {
+        return instance.post<CommonResponseType<{ userId: number }>>('auth/login', data)
+    },
+    authMe() {
+        return instance.get<CommonResponseType<AuthMeResponseType>>('auth/me')
+    },
+    logOut() {
+        return instance.delete<CommonResponseType>('auth/login')
+    },
+}
+
 

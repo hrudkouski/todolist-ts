@@ -78,8 +78,11 @@ export const fetchTodolistsTC = (): AppThunkType => {
         dispatch(setAppStatus('loading'))
         todoListApi.getToDoList()
             .then((res) => {
-                dispatch(setTodolistsAC(res.data))
-                dispatch(setAppStatus('succeeded'))
+                    dispatch(setTodolistsAC(res.data))
+                    dispatch(setAppStatus('succeeded'))
+            })
+            .catch((error) => {
+                handleServerNetworkError(error, dispatch)
             })
     }
 }
