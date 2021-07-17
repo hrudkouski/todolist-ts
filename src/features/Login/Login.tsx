@@ -49,7 +49,7 @@ export const Login = () => {
         return <Redirect to={'/'}/>
     }
 
-    return <Grid container justify="center">
+    return <Grid container justify="center" style={{minHeight: "100vh"}}>
         <Grid item xs={4}>
             <form onSubmit={formik.handleSubmit}>
                 <FormControl>

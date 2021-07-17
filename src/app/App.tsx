@@ -15,7 +15,7 @@ import {AppRootStateType} from "./store";
 import {initializeAppTC, RequestStatusType} from "./app-reducer";
 import {Redirect, Route, Switch} from 'react-router-dom';
 import {Login} from "../features/Login/Login";
-import Error404 from "../features/Error404/Error404";
+import {Error404} from "../features/Error404/Error404";
 import CircularProgress from '@material-ui/core/CircularProgress/CircularProgress';
 import {logOut} from "../features/Login/auth-reducer";
 
@@ -57,6 +57,7 @@ const App: React.FC<AppPropsType> = ({demo = false}) => {
                     </Typography>
                     {isLoggedIn
                         ? <Button
+                            style={{backgroundColor: '#F50057'}}
                             onClick={logOutHandler}
                             variant={'outlined'}
                             color="inherit">Log Out</Button>
@@ -68,8 +69,8 @@ const App: React.FC<AppPropsType> = ({demo = false}) => {
             <ErrorSnackbar/>
             <Container fixed>
                 <Switch>
-                    <Route path={'/login'} render={() => <Login/>}/>
                     <Route exact path={'/'} render={() => <TodolistsList demo={demo}/>}/>
+                    <Route path={'/login'} render={() => <Login/>}/>
                     <Route path={'/404'} render={() => <Error404/>}/>
                     <Redirect from={'*'} to={'/404'}/>
                 </Switch>

@@ -92,6 +92,7 @@ export const Todolist = React.memo((props: TodolistPropsType) => {
                         disabled={todoList.entityStatus === 'loading'}
                     />
                     <IconButton
+                        color={'secondary'}
                         disabled={todoList.entityStatus === 'loading'}
                         onClick={onClickDeleteTodoList}>
                         <Delete />

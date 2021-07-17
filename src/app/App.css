@@ -1,33 +1,9 @@
-.error {
-    border: red 2px solid;
-    outline: none;
-}
-
-.error-message {
-    color: red;
-}
-
-.active-filter {
-    background-color: #AFD4FF;
-}
-
-.is-done {
-    opacity: 0.5;
-}
-
-.button-removed {
-    background-color: #AFD4FF;
-    margin-left: 5px;
-    padding: 0;
-    cursor: pointer;
-    width: 15px;
-    height: 20px;
-}
-
-.button-removed:hover {
-    background-color: red;
-}
-
-.App {
-    background: no-repeat center center url("https://all4desktop.com/data_images/original/4236532-background-images.jpg");
-}
+/*.App {*/
+/*    background: url('https://all4desktop.com/data_images/original/4236532-background-images.jpg') no-repeat center center fixed;*/
+/*    -webkit-background-size: cover;*/
+/*    -moz-background-size: cover;*/
+/*    -o-background-size: cover;*/
+/*    background-size: cover;*/
+/*    height: 100%;*/
+/*    overflow: hidden;*/
+/*}*/

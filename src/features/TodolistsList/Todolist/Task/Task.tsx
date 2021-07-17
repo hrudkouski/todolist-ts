@@ -52,6 +52,7 @@ export const Task = React.memo((props: TasksPropsType) => {
             <IconButton
                 disabled={disabled === 'loading'}
                 onClick={removeTaskHandler}
+                color={'secondary'}
             >
                 <Delete/>
             </IconButton>

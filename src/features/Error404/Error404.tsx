@@ -1,17 +1,13 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom';
 import s from './Error404.module.css'
 
-function Error404() {
-    return (
-        <div className={s.wrapper}>
-            <div className={s.error}>404</div>
-            <div className={s.errorText}>Not found!</div>
-            <div
-                className={s.errorText2}>
-                The resource requested could not be found on this server!
-            </div>
-        </div>
-    )
-}
-
-export default Error404
+export const Error404 = () => (
+    <div className={s.wrapper}>
+        <h1>404</h1>
+        <p>..........Oops! Something is wrong.</p>
+        <NavLink className={s.button} to="/">
+            &larr; Go back in initial page, is better
+        </NavLink>
+    </div>
+);
